@@ -108,37 +108,38 @@ graph LR
 
 ## 🔄 5. Security Pipeline
 
-## 🔄 Security Operations Pipeline
-
 ```mermaid
-flowchart TD
+flowchart LR
 
-A[Adversary Emulation] --> B[Endpoint Execution]
-B --> C[Sysmon Telemetry]
-C --> D[Log Collection<br>Winlogbeat / Filebeat]
-D --> E[Elasticsearch SIEM]
-E --> F[Detection Engineering]
-F --> G[Alert Generation]
-G --> H[SOC Triage]
-H --> I[Threat Hunting]
-I --> J[DFIR Investigation]
-J --> K[IOC Extraction]
-K --> L[Incident Report]
+A[Attack Simulation] --> B[Telemetry Collection] --> C[SIEM Detection] --> D[SOC Analysis] --> E[DFIR & Response]
 ```
 
 ---
 
 ## 🚀 6. Key Features
 
-- Multi-stage APT simulation (Recon → C2)
-- Credential dumping simulation (LSASS / NTDS)
-- Lateral movement (Pass-the-Hash, SMB, WinRM)
-- Persistence mechanisms (registry, tasks, services)
-- KQL + Sigma detection engineering
-- MITRE ATT&CK mapping engine
-- Kibana SOC dashboards
-- Velociraptor threat hunting
-- DFIR timeline reconstruction
+
+- Credential dumping – LSASS memory extraction (Mimikatz), NTDS.dit, and hash caching
+
+- Lateral movement – Pass‑the‑Hash, PSExec, WMI, WinRM, SMB, RDP
+
+- Persistence mechanisms – Scheduled tasks, registry run keys, services, startup folders
+
+- Detection engineering – Custom Kibana (KQL) rules + Sigma rules for SIEM portability
+
+- MITRE ATT&CK mapping – Every technique mapped to tactic, ID, and detection logic
+
+- Kibana SOC dashboards – Active agents, severity metrics, top alerts, event timelines
+
+- Velociraptor‑based threat hunting – VQL hunts for processes, scheduled tasks, event logs, and file artefacts
+
+- DFIR timeline reconstruction – Correlation of attacker steps from initial access to domain compromise
+
+- Sysmon event telemetry – Detailed process, network, and LSASS access logging
+
+- Offline air‑gapped installation – No internet required for agent deployment or attack execution
+
+
 
 ---
 
