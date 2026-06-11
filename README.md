@@ -134,49 +134,45 @@ Command & Control | Communication | Beacon detection
 
 ## 📁 7. Repository Structure
 
+```text
 nation-state-lab/
-├── README.md
-├── PROJECT-OVERVIEW.md
-├── ARCHITECTURE.md
-├── QUICK-START-GUIDE.md
-├── LICENSE
-├── CONTRIBUTING.md
-├── .gitignore
 │
-├── 01-INFRASTRUCTURE/
+├── 📄 README.md
+├── 📄 PROJECT-OVERVIEW.md
+├── 📄 ARCHITECTURE.md
+├── 📄 QUICK-START-GUIDE.md
+│
+├── 📂 01-INFRASTRUCTURE/
 │   ├── network-topology.md
 │   ├── vm-configuration.md
 │   ├── network-diagram.png
-│   ├── ip-addressing-table.csv
+│   └── ip-addressing-table.csv
 │
-├── 02-ACTIVE-DIRECTORY-SETUP/
+├── 📂 02-ACTIVE-DIRECTORY-SETUP/
 │   ├── dc-configuration.md
 │   ├── domain-structure.md
 │   ├── user-accounts.md
 │   ├── group-policy.md
-│   ├── audit-policies.md
+│   └── audit-policies.md
 │
-├── 03-MONITORING-STACK/
+├── 📂 03-MONITORING-STACK/
 │   ├── elasticsearch-setup.md
 │   ├── kibana-installation.md
 │   ├── winlogbeat-config.md
 │   ├── filebeat-config.md
 │   ├── velociraptor-setup.md
 │   ├── docker-compose.yml
-│   ├── troubleshooting.md
+│   └── troubleshooting.md
 │
-├── 04-ATTACK-TOOLS/
+├── 📂 04-ATTACK-TOOLS/
 │   ├── metasploit-setup.md
 │   ├── caldera-deployment.md
 │   ├── bloodhound-setup.md
 │   ├── atomic-red-team.md
 │   ├── impacket-tools.md
 │   └── installation-scripts/
-│       ├── install-kali-tools.sh
-│       ├── install-elastic.sh
-│       ├── install-winlogbeat.ps1
 │
-├── 05-ATTACK-EXECUTION/
+├── 📂 05-ATTACK-EXECUTION/
 │   ├── attack-chain-overview.md
 │   ├── phase-1-reconnaissance.md
 │   ├── phase-2-initial-access.md
@@ -185,58 +181,82 @@ nation-state-lab/
 │   ├── phase-5-credential-dumping.md
 │   ├── phase-6-lateral-movement.md
 │   ├── phase-7-command-control.md
-│   ├── evidence/
+│   └── evidence/
 │
-├── 06-DETECTION-ENGINEERING/
+├── 📂 06-DETECTION-ENGINEERING/
 │   ├── detection-overview.md
 │   ├── kibana-dashboards.md
 │   ├── alert-rules.md
-│   ├── detection-rules/
-│       ├── reverse-shell.kql
-│       ├── persistence.kql
-│       ├── uac-bypass.kql
-│       ├── credential-access.kql
-│       ├── lateral-movement.kql
-│       ├── c2-beacon.kql
+│   ├── detection-metrics.md
+│   └── detection-rules/
 │
-├── 07-THREAT-HUNTING/
+├── 📂 07-THREAT-HUNTING/
+│   ├── threat-hunting-overview.md
+│   ├── threat-hunting-playbook.md
 │   ├── velociraptor-hunts.md
-│   ├── hunting-playbook.md
-│   ├── vql-queries/
-│       ├── process.vql
-│       ├── network.vql
-│       ├── registry.vql
+│   └── vql-queries/
 │
-├── 08-FORENSICS/
-│   ├── incident-response.md
-│   ├── timeline.md
+├── 📂 08-FORENSICS/
+│   ├── incident-response-overview.md
+│   ├── event-log-analysis.md
 │   ├── memory-forensics.md
+│   ├── timeline-reconstruction.md
+│   ├── ioc-extraction.md
+│   └── artifacts/
 │
-├── 09-MITRE-ATT&CK/
+├── 📂 09-MITRE-ATT&CK/
+│   ├── framework-overview.md
 │   ├── attack-mapping.md
-│   ├── heatmap.png
+│   ├── tactic-technique-table.md
+│   └── detailed-mappings/
 │
-├── 10-INCIDENT-REPORT/
-│   ├── report.md
+├── 📂 10-INCIDENT-REPORT/
+│   ├── INCIDENT-REPORT.md
 │   ├── executive-summary.md
+│   ├── technical-analysis.md
+│   ├── findings-summary.md
+│   └── recommendations.md
 │
-├── 11-DASHBOARD/
-│   ├── dashboard.ndjson
+├── 📂 11-DASHBOARD-CONFIG/
+│   ├── dashboard-export.ndjson
+│   ├── dashboard-guide.md
+│   ├── visualization-guide.md
+│   └── dashboard-screenshots/
 │
-├── 12-SCRIPTS/
-│   ├── setup.sh
-│   ├── install.ps1
+├── 📂 12-SCRIPTS/
+│   ├── lab-setup.sh
+│   ├── install-docker-elastic.sh
+│   ├── generate-payload.sh
+│   └── troubleshooting-script.sh
 │
-├── 13-DOCUMENTATION/
-│   ├── troubleshooting.md
+├── 📂 13-DOCUMENTATION/
+│   ├── TROUBLESHOOTING.md
+│   ├── BEST-PRACTICES.md
+│   ├── SECURITY-HARDENING.md
+│   ├── PERFORMANCE-OPTIMIZATION.md
+│   └── FAQ.md
 │
-├── 14-LEARNING-RESOURCES/
-│   ├── mitre.md
+├── 📂 14-LEARNING-RESOURCES/
+│   ├── MITRE-ATTACK-Guide.md
+│   ├── Cyber-Kill-Chain.md
+│   ├── Incident-Response-Framework.md
+│   ├── Detection-Engineering-Guide.md
+│   └── Threat-Hunting-Methodology.md
 │
-├── 15-TOOLS/
-│   ├── versions.md
+├── 📂 15-TOOLS-VERSION-REFERENCE/
+│   ├── tools-versions.md
+│   └── compatibility-matrix.md
 │
-└── assets/
+├── 📂 assets/
+│   ├── banners/
+│   ├── diagrams/
+│   ├── screenshots/
+│   └── logos/
+│
+├── LICENSE
+├── CONTRIBUTING.md
+└── .gitignore
+```
 
 ---
 
