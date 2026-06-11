@@ -130,11 +130,10 @@ Attack Simulation → Endpoint Execution → Sysmon Logs → Beat Collection →
 | Credential Access | Steal credentials and authentication material | LSASS access, credential dumping activity |
 | Lateral Movement | Move between systems within the network | SMB, WinRM, RDP, and remote execution monitoring |
 | Command & Control | Establish communication with attacker infrastructure | Beaconing patterns, suspicious outbound connections |
-```
 
 ---
 
-## 📁 7. Repository Structure
+## 📁 7. Project Structure
 
 ```text
 nation-state-lab/
