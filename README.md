@@ -36,25 +36,48 @@ Primary Strategic Outcomes:
 
 ## 🏗️ 3. Architecture
 
-ATTACK LAYER
-Atomic Red Team | Metasploit | CALDERA | BloodHound
-        |
-        v
-ACTIVE DIRECTORY ENTERPRISE
-Domain Controller | Workstations | Servers | GPO Hardening
-        |
-        v
-TELEMETRY COLLECTION
-Sysmon | Winlogbeat | Filebeat | Velociraptor
-        |
-        v
-ELASTIC SECURITY PLATFORM
-Elasticsearch | Kibana | Detection Engine
-        |
-        v
-SECURITY OPERATIONS LAYER
-SOC | DFIR | Threat Hunting | ATT&CK Mapping
+```mermaid
+flowchart TB
 
+    subgraph ATTACK["Attack Layer"]
+        A1[Atomic Red Team]
+        A2[Metasploit]
+        A3[CALDERA]
+        A4[BloodHound]
+    end
+
+    subgraph AD["Active Directory Enterprise"]
+        B1[Domain Controller]
+        B2[Windows Workstations]
+        B3[Windows Servers]
+        B4[GPO Hardening]
+    end
+
+    subgraph TELEMETRY["Telemetry Collection"]
+        C1[Sysmon]
+        C2[Winlogbeat]
+        C3[Filebeat]
+        C4[Velociraptor]
+    end
+
+    subgraph ELASTIC["Elastic Security Platform"]
+        D1[Elasticsearch]
+        D2[Kibana]
+        D3[Detection Engine]
+    end
+
+    subgraph SOC["Security Operations Layer"]
+        E1[SOC Monitoring]
+        E2[DFIR]
+        E3[Threat Hunting]
+        E4[MITRE ATT&CK Mapping]
+    end
+
+    ATT --> AD
+    AD --> TELEMETRY
+    TELEMETRY --> ELASTIC
+    ELASTIC --> SOC
+```
 ---
 
 ## 🔄 4. Security Pipeline
