@@ -1,0 +1,45 @@
+/*
+  scheduled-tasks-hunt.vql
+  Purpose: Detect persistence via scheduled tasks (Updater, shell.exe, beacon.exe)
+*/
+
+-- ---------------------------------------------------------------------
+-- 1. Specific Updater task detection
+-- ---------------------------------------------------------------------
+LET UpdaterTask = SELECT *
+FROM hunt_results(artifact="Windows.Sys.ScheduledTasks")
+WHERE Name =~ '(?i)^Updater$'
+
+-- ---------------------------------------------------------------------
+-- 2. Tasks executing malicious payloads
+-- ---------------------------------------------------------------------
+LET MaliciousActions = SELECT *
+FROM hunt_results(artifact="Windows.Sys.ScheduledTasks")
+WHERE Action =~ '(?i)shell\.exe|beacon\.exe|C:\\Users\\Public\\.*\.exe'
+
+-- ---------------------------------------------------------------------
+-- 3. Tasks using suspicious directories
+-- ---------------------------------------------------------------------
+LET SuspiciousPaths = SELECT *
+FROM hunt_results(artifact="Windows.Sys.ScheduledTasks")
+WHERE Action =~ '(?i)C:\\Users\\Public|C:\\Temp|C:\\Windows\\Temp'
+
+-- ---------------------------------------------------------------------
+-- 4. Tasks created during attack window
+-- ---------------------------------------------------------------------
+LET AttackWindow = SELECT *
+FROM hunt_results(artifact="Windows.Sys.ScheduledTasks")
+WHERE CreateTime >= timestamp(epoch=1749585600)
+  AND CreateTime <= timestamp(epoch=1749600000)
+
+-- ---------------------------------------------------------------------
+-- 5. Final combined output (correct VQL way)
+-- ---------------------------------------------------------------------
+SELECT *
+FROM chain(
+    UpdaterTask,
+    MaliciousActions,
+    SuspiciousPaths,
+    AttackWindow
+)
+ORDER BY CreateTime DESC

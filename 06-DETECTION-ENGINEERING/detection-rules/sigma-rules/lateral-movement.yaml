@@ -1,0 +1,116 @@
+title: Suspicious Network Logon (Pass-the-Hash / Lateral Movement)
+id: d4e5f6a7-8b9c-0d1e-2f3a-4b5c6d7e8f9b
+status: experimental
+description: Detects network logon (Logon Type 3) using NTLM from non-trusted sources, indicating possible pass-the-hash or lateral movement.
+references:
+    - https://attack.mitre.org/techniques/T1550/002/
+    - https://attack.mitre.org/techniques/T1021/002/
+author: Lab Simulation
+date: 2026-06-10
+tags:
+    - attack.lateral_movement
+    - attack.t1550.002
+    - attack.t1021.002
+
+logsource:
+    product: windows
+    service: security
+    category: logon
+
+detection:
+    selection:
+        EventID: 4624
+        LogonType: 3
+        AuthenticationPackageName: NTLM
+
+    filter_local:
+        SourceNetworkAddress:
+            - "127.0.0.1"
+            - "::1"
+
+    filter_machine_accounts:
+        WorkstationName|endswith: "$"
+
+    condition: selection and not filter_local and not filter_machine_accounts
+
+falsepositives:
+    - Legitimate remote administration from trusted hosts
+    - Domain controller internal authentication traffic
+level: high
+---
+title: Admin Share Access (ADMIN$ or IPC$)
+id: e5f6a7b8-9c0d-1e2f-3a4b-5c6d7e8f9a0c
+status: experimental
+description: Detects remote access to ADMIN$ share, commonly used in PsExec and lateral movement.
+references:
+    - https://attack.mitre.org/techniques/T1021/002/
+
+logsource:
+    product: windows
+    service: security
+    category: object_access
+
+detection:
+    selection:
+        EventID: 5140
+        ShareName|contains:
+            - "ADMIN$"
+            - "IPC$"
+
+    filter_local:
+        SourceAddress:
+            - "127.0.0.1"
+            - "::1"
+
+    condition: selection and not filter_local
+
+falsepositives:
+    - IT administration tools and remote management software
+level: medium
+---
+title: PSEXESVC Service Creation (PsExec Lateral Movement)
+id: f6a7b8c9-0d1e-2f3a-4b5c-6d7e8f9a0b1d
+status: experimental
+description: Detects creation of PSEXESVC service used by PsExec for remote command execution.
+references:
+    - https://attack.mitre.org/techniques/T1021/002/
+
+logsource:
+    product: windows
+    service: system
+    category: service_creation
+
+detection:
+    selection:
+        EventID: 7045
+        ServiceName|contains: "PSEXESVC"
+
+    condition: selection
+
+falsepositives:
+    - Rare legitimate administrative PsExec usage
+level: high
+---
+title: Privileged Logon (Admin Account Remote Access)
+id: a7b8c9d0-1e2f-3a4b-5c6d-7e8f9a0b1c2e
+status: experimental
+description: Detects privileged logons (Event 4672) indicating admin-level access after network authentication.
+references:
+    - https://attack.mitre.org/techniques/T1550/002/
+
+logsource:
+    product: windows
+    service: security
+    category: logon
+
+detection:
+    selection:
+        EventID: 4672
+        TargetUserName: Administrator
+        TargetDomainName: "NATION"
+
+    condition: selection
+
+falsepositives:
+    - Legitimate administrative logins from trusted systems
+level: high

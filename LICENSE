@@ -1,0 +1,44 @@
+# MIT License
+
+Copyright (c) 2026 Nation-State Lab Project
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS, COPYRIGHT HOLDERS, CONTRIBUTORS, OR PROJECT MAINTAINERS BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM, OUT OF, OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+---
+
+# Responsible Use Notice
+
+The Nation-State Lab project is an educational cybersecurity laboratory designed to support learning, research, defensive security validation, detection engineering, threat hunting, and authorised security testing.
+
+This repository may contain infrastructure configurations, attack simulations, detection content, automation scripts, and adversary emulation techniques intended solely for use within isolated and controlled environments.
+
+By using, modifying, or distributing this project, you agree to the following:
+
+* Use the project only for educational, research, training, or authorised security assessment purposes.
+* Conduct testing only against systems, networks, and environments for which you have explicit permission.
+* Comply with all applicable laws, regulations, and organisational policies.
+* Accept full responsibility for any actions performed using the software, configurations, documentation, or techniques contained within this repository.
+
+The authors, contributors, and maintainers do not endorse, encourage, or accept responsibility for any unauthorised, illegal, or malicious use of this project.
+
+---
+
+# Trademark and Naming
+
+"Nation-State Lab" is the name of this project and may not be used to imply endorsement, affiliation, certification, sponsorship, or partnership without prior written permission from the project maintainers.
+
+This license grants rights only to the software and documentation contained in this repository and does not grant any rights to project branding, logos, trademarks, or visual identity elements.
+
+---
+
+# Educational Environment Disclaimer
+
+The attack simulations, detection rules, threat hunting procedures, incident response workflows, and adversary emulation content provided in this repository are intended for laboratory environments and controlled demonstrations.
+
+Production deployments should undergo independent security review, validation, hardening, and risk assessment before implementation.
+
+Users are responsible for ensuring that any deployment complies with their organisation's security, legal, and compliance requirements.

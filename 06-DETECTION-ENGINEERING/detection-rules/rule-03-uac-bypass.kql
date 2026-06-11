@@ -1,0 +1,13 @@
+# rule-uac-bypass-detection.kql
+# UAC Bypass Detection Rule – eventvwr / sdclt / fodhelper abuse
+
+(
+  event.code: 4688
+  and winlog.event_data.ProcessName: ("eventvwr.exe" or "sdclt.exe" or "fodhelper.exe" or "computerdefaults.exe" or "msconfig.exe" or "gpedit.msc" or "regedit.exe")
+)
+or
+(
+  event.code: 4688
+  and winlog.event_data.ParentProcessName: ("eventvwr.exe" or "sdclt.exe" or "fodhelper.exe" or "computerdefaults.exe")
+  and winlog.event_data.ProcessName: ("cmd.exe" or "powershell.exe" or "powershell_ise.exe")
+)

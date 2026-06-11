@@ -1,0 +1,68 @@
+ /*
+   process-hunting.vql
+   Purpose: Hunt for APT attack artefacts - reverse shell, HTTP beacon, LOLBin execution
+   Targets: shell.exe, beacon.exe, certutil.exe downloads, suspicious parent-child execution
+   Artifact: Windows.Sys.Processes
+*/
+
+-- -----------------------------------------------------------------------------
+-- 1. Hunt for known malicious process names
+-- -----------------------------------------------------------------------------
+LET MaliciousNames = SELECT *
+FROM hunt_results()
+WHERE Exe =~ '(?i)(shell|beacon|reverse|meterpreter)\.exe$'
+ORDER BY CreateTime
+
+-- -----------------------------------------------------------------------------
+-- 2. Hunt for certutil.exe downloading executable payloads (LOLBin abuse)
+-- -----------------------------------------------------------------------------
+LET CertutilDownloads = SELECT *
+FROM hunt_results()
+WHERE Exe =~ '(?i)certutil\.exe$'
+AND CommandLine =~ '(?i)-urlcache.*http.*\.exe'
+
+-- -----------------------------------------------------------------------------
+-- 3. Hunt for processes spawned from certutil.exe (payload execution chain)
+-- -----------------------------------------------------------------------------
+LET SpawnedFromCertutil = SELECT *
+FROM hunt_results()
+WHERE ParentExe =~ '(?i)certutil\.exe$'
+AND Exe =~ '(?i)\.exe$'
+
+-- -----------------------------------------------------------------------------
+-- 4. Hunt for reverse shell / encoded payload command lines
+-- -----------------------------------------------------------------------------
+LET SuspiciousCmdline = SELECT *
+FROM hunt_results()
+WHERE CommandLine =~ '(?i)(
+    Invoke-WebRequest|
+    -OutFile|
+    IEX|
+    base64|
+    -enc|
+    powershell.*-e|
+    certutil.*-urlcache
+)'
+
+-- -----------------------------------------------------------------------------
+-- 5. Final combined results (APT hunting view)
+-- -----------------------------------------------------------------------------
+SELECT
+    Name,
+    Pid,
+    Ppid,
+    Exe,
+    CommandLine,
+    CreateTime,
+    ParentExe,
+    Username
+FROM (
+    SELECT * FROM MaliciousNames
+    UNION ALL
+    SELECT * FROM CertutilDownloads
+    UNION ALL
+    SELECT * FROM SpawnedFromCertutil
+    UNION ALL
+    SELECT * FROM SuspiciousCmdline
+)
+ORDER BY CreateTime

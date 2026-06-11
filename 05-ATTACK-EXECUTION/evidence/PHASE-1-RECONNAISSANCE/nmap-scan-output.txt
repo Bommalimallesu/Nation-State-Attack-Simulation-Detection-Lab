@@ -1,0 +1,128 @@
+# Nmap scan output – Nation‑State Lab
+# Command: nmap --privileged -sV -O -oA /tmp/nmap_scan 192.168.1.0/24
+# Date: Sun Jun 7 07:39:14 2026
+# Attacker: Kali (192.168.1.5)
+
+Nmap scan report for 192.168.1.1
+Host is up (0.00078s latency).
+All 1000 scanned ports on 192.168.1.1 are in ignored states.
+Not shown: 1000 filtered tcp ports (no-response)
+MAC Address: 00:50:56:C0:00:01 (VMware)
+Too many fingerprints match this host to give specific OS details
+Network Distance: 1 hop
+
+Nmap scan report for 192.168.1.10 (DC.nation.local)
+Host is up (0.00085s latency).
+Not shown: 987 filtered tcp ports (no-response)
+PORT      STATE SERVICE       VERSION
+53/tcp    open  domain        Simple DNS Plus
+88/tcp    open  kerberos-sec  Microsoft Windows Kerberos (server time: 2026-06-07 14:39:39Z)
+135/tcp   open  msrpc         Microsoft Windows RPC
+139/tcp   open  netbios-ssn   Microsoft Windows netbios-ssn
+389/tcp   open  ldap          Microsoft Windows Active Directory LDAP (Domain: nation.local, Site: Default-First-Site-Name)
+445/tcp   open  microsoft-ds?
+464/tcp   open  kpasswd5?
+593/tcp   open  ncacn_http    Microsoft Windows RPC over HTTP 1.0
+636/tcp   open  tcpwrapped
+3268/tcp  open  ldap          Microsoft Windows Active Directory LDAP (Domain: nation.local, Site: Default-First-Site-Name)
+3269/tcp  open  tcpwrapped
+5357/tcp  open  http          Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+5985/tcp  open  http          Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+MAC Address: 00:0C:29:B0:B5:2E (VMware)
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+Device type: general purpose
+Running (JUST GUESSING): Microsoft Windows 2019|10|11 (97%)
+OS CPE: cpe:/o:microsoft:windows_server_2019 cpe:/o:microsoft:windows_10 cpe:/o:microsoft:windows_11
+Aggressive OS guesses: Microsoft Windows Server 2019 (97%), Microsoft Windows 10 1803 (91%), Microsoft Windows 10 1903-22H2 (91%), Microsoft Windows 10 22H2 (91%), Microsoft Windows 11 (88%)
+No exact OS matches for host (test conditions non-ideal).
+Network Distance: 1 hop
+Service Info: Host: DC; OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Nmap scan report for 192.168.1.20 (WS1.nation.local)
+Host is up (0.00072s latency).
+Not shown: 999 filtered tcp ports (no-response)
+PORT    STATE SERVICE VERSION
+135/tcp open  msrpc   Microsoft Windows RPC
+MAC Address: 00:0C:29:76:1E:BE (VMware)
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+Device type: general purpose
+Running (JUST GUESSING): Microsoft Windows 10|11|2019 (92%)
+OS CPE: cpe:/o:microsoft:windows_10 cpe:/o:microsoft:windows_11 cpe:/o:microsoft:windows_server_2019
+Aggressive OS guesses: Microsoft Windows 10 1903-22H2 (92%), Microsoft Windows 10 22H2 (92%), Microsoft Windows 10 1803 (91%), Microsoft Windows 11 (87%), Microsoft Windows 10 1909 (85%), Microsoft Windows 10 1909-2004 (85%), Microsoft Windows Server 2019 (85%), Microsoft Windows 10 1809 (85%)
+No exact OS matches for host (test conditions non-ideal).
+Network Distance: 1 hop
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Nmap scan report for 192.168.1.30 (WS-2.nation.local)
+Host is up (0.00059s latency).
+Not shown: 999 filtered tcp ports (no-response)
+PORT    STATE SERVICE VERSION
+135/tcp open  msrpc   Microsoft Windows RPC
+MAC Address: 00:0C:29:94:A6:33 (VMware)
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+Device type: general purpose
+Running (JUST GUESSING): Microsoft Windows 10|11|2019 (92%)
+OS CPE: cpe:/o:microsoft:windows_10 cpe:/o:microsoft:windows_11 cpe:/o:microsoft:windows_server_2019
+Aggressive OS guesses: Microsoft Windows 10 1803 (92%), Microsoft Windows 10 1903-22H2 (92%), Microsoft Windows 10 22H2 (92%), Microsoft Windows 11 (89%), Microsoft Windows 10 1809 (87%), Microsoft Windows 10 1909 (85%), Microsoft Windows 10 1909-2004 (85%), Microsoft Windows Server 2019 (85%)
+No exact OS matches for host (test conditions non-ideal).
+Network Distance: 1 hop
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Nmap scan report for 192.168.1.50 (FILESERVER.nation.local)
+Host is up (0.00064s latency).
+Not shown: 996 filtered tcp ports (no-response)
+PORT     STATE SERVICE       VERSION
+135/tcp  open  msrpc         Microsoft Windows RPC
+139/tcp  open  netbios-ssn   Microsoft Windows netbios-ssn
+445/tcp  open  microsoft-ds?
+5985/tcp open  http          Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+MAC Address: 00:0C:29:B4:8C:C8 (VMware)
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+Device type: general purpose
+Running (JUST GUESSING): Microsoft Windows 2019|10|11 (97%)
+OS CPE: cpe:/o:microsoft:windows_server_2019 cpe:/o:microsoft:windows_10 cpe:/o:microsoft:windows_11
+Aggressive OS guesses: Microsoft Windows Server 2019 (97%), Microsoft Windows 10 1803 (91%), Microsoft Windows 10 1903-22H2 (91%), Microsoft Windows 10 22H2 (91%), Microsoft Windows 11 (88%)
+No exact OS matches for host (test conditions non-ideal).
+Network Distance: 1 hop
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Nmap scan report for 192.168.1.60 (WEBSERVER.nation.local)
+Host is up (0.00057s latency).
+Not shown: 998 filtered tcp ports (no-response)
+PORT     STATE SERVICE VERSION
+80/tcp   open  http    Microsoft IIS httpd 10.0
+5985/tcp open  http    Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+MAC Address: 00:0C:29:35:8A:FA (VMware)
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+Device type: general purpose
+Running (JUST GUESSING): Microsoft Windows 2019|10 (92%)
+OS CPE: cpe:/o:microsoft:windows_server_2019 cpe:/o:microsoft:windows_10
+Aggressive OS guesses: Microsoft Windows Server 2019 (92%), Microsoft Windows 10 1607 (87%), Microsoft Windows 10 1903-22H2 (85%)
+No exact OS matches for host (test conditions non-ideal).
+Network Distance: 1 hop
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Nmap scan report for 192.168.1.100 (Wazuh-Manager / Ubuntu)
+Host is up (0.00076s latency).
+Not shown: 996 closed tcp ports (reset)
+PORT     STATE SERVICE    VERSION
+22/tcp   open  ssh        OpenSSH 8.9p1 Ubuntu 3ubuntu0.15 (Ubuntu Linux; protocol 2.0)
+8000/tcp open  ssl/http   Golang net/http server (Go-IPFS json-rpc or InfluxDB API)
+8001/tcp open  vcom-tunnel?
+9200/tcp open  http       Elasticsearch REST API 8.14.0 (name: b19a4e765677; cluster: docker-cluster; Lucene 9.10.0)
+MAC Address: 00:0C:29:5D:55:9E (VMware)
+Device type: general purpose
+Running: Linux 4.X|5.X
+OS CPE: cpe:/o:linux:linux_kernel:4 cpe:/o:linux:linux_kernel:5
+OS details: Linux 4.15 - 5.19
+Network Distance: 1 hop
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Nmap scan report for 192.168.1.5 (Kali attacker)
+Host is up (0.0013s latency).
+All 1000 scanned ports on 192.168.1.5 are in ignored states.
+Not shown: 1000 filtered tcp ports (no-response)
+Too many fingerprints match this host to give specific OS details
+Network Distance: 0 hops
+
+# Nmap done at Sun Jun 7 07:43:19 2026 -- 256 IP addresses (8 hosts up) scanned in 244.55 seconds

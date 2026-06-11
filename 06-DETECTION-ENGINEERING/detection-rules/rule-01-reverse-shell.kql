@@ -1,0 +1,4 @@
+event.code: 4688
+AND winlog.event_data.NewProcessName: (*shell.exe OR *beacon.exe)
+AND winlog.event_data.ParentProcessName: (cmd.exe OR powershell.exe)
+AND winlog.event_data.NewProcessName: (*\\Users\\Public\\* OR *\\Temp\\*)

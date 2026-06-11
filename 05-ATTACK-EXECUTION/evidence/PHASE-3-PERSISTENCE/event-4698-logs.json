@@ -1,0 +1,69 @@
+{
+  "log_type": "Windows Security Event",
+  "event_id": 4698,
+  "event_name": "A scheduled task was created",
+  "source": "winlogbeat",
+  "index": "winlogbeat-8.14.0-2026.06.10",
+
+  "timestamp": "2026-06-10T09:15:22.345Z",
+
+  "host": {
+    "name": "WS1",
+    "fqdn": "WS1.nation.local",
+    "ip": "192.168.1.20",
+    "os": {
+      "name": "Windows 10 Pro",
+      "version": "10.0.19045"
+    }
+  },
+
+  "agent": {
+    "name": "WS1",
+    "type": "winlogbeat",
+    "version": "8.14.0",
+    "id": "d8a7b5c2-1e4f-4a2b-9c3d-7f6e5a4b3c2d"
+  },
+
+  "event": {
+    "provider": "Microsoft-Windows-Security-Auditing",
+    "category": "process",
+    "type": "creation",
+    "severity": "info",
+    "outcome": "success"
+  },
+
+  "user": {
+    "account": "NATION\\Administrator",
+    "logon_type": "InteractiveToken"
+  },
+
+  "process": {
+    "creator": "C:\\Windows\\System32\\schtasks.exe",
+    "parent": "cmd.exe",
+    "command_line": "schtasks /create /tn \"Updater\" /tr \"C:\\Users\\Public\\shell.exe\" /sc daily /st 09:00 /f"
+  },
+
+  "scheduled_task": {
+    "name": "Updater",
+    "action": "C:\\Users\\Public\\shell.exe",
+    "schedule": "DAILY",
+    "start_time": "09:00",
+    "enabled": true,
+    "run_level": "HighestAvailable"
+  },
+
+  "task_xml_summary": {
+    "trigger": "CalendarTrigger (Daily)",
+    "execution_context": "NATION\\Administrator",
+    "action_type": "Exec",
+    "execution_path": "C:\\Users\\Public\\shell.exe"
+  },
+
+  "message": "Scheduled task 'Updater' created successfully executing shell.exe under Administrator context",
+
+  "tags": [
+    "persistence",
+    "scheduled_task",
+    "attck:T1053.005"
+  ]
+}

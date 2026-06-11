@@ -1,0 +1,26 @@
+# rule-c2-http-beacon.kql
+# Command & Control Detection – HTTP Beacon / Reverse Shell Traffic
+
+(
+  event.code: 3
+  and destination.port: (8080 or 8081 or 4444 or 4445)
+  and process.name: ("beacon.exe" or "shell.exe")
+)
+or
+(
+  event.code: 4688
+  and winlog.event_data.ProcessName: "*\\beacon.exe"
+)
+or
+(
+  event.code: 3
+  and destination.ip: "192.168.1.5"
+  and destination.port: 8081
+  and network.transport: "tcp"
+)
+or
+(
+  event.code: 1
+  and process.name: "beacon.exe"
+  and network.direction: "outbound"
+)

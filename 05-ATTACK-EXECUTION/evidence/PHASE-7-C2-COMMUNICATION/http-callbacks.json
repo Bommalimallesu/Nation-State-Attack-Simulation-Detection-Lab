@@ -1,0 +1,115 @@
+[
+  {
+    "@timestamp": "2026-06-10T06:25:10.123Z",
+    "host": { "name": "DC" },
+    "event": {
+      "code": 4688,
+      "provider": "Microsoft-Windows-Security-Auditing",
+      "action": "process-created"
+    },
+    "winlog": {
+      "event_id": 4688,
+      "event_data": {
+        "ProcessName": "C:\\Users\\Public\\beacon.exe",
+        "CommandLine": "beacon.exe",
+        "ParentProcessName": "C:\\Windows\\System32\\cmd.exe",
+        "NewProcessId": "0x1A4C",
+        "SubjectUserName": "Administrator",
+        "SubjectDomainName": "NATION"
+      }
+    },
+    "process": {
+      "name": "beacon.exe",
+      "command_line": "beacon.exe",
+      "parent": { "name": "cmd.exe" }
+    },
+    "user": { "name": "Administrator", "domain": "NATION" }
+  },
+  {
+    "@timestamp": "2026-06-10T06:25:10.456Z",
+    "host": { "name": "DC" },
+    "source": { "ip": "192.168.1.10", "port": 49235 },
+    "destination": { "ip": "192.168.1.5", "port": 8081 },
+    "event": {
+      "code": 3,
+      "provider": "Microsoft-Windows-Sysmon",
+      "action": "network-connection"
+    },
+    "winlog": {
+      "event_id": 3,
+      "event_data": {
+        "Image": "C:\\Users\\Public\\beacon.exe",
+        "SourceIp": "192.168.1.10",
+        "SourcePort": "49235",
+        "DestinationIp": "192.168.1.5",
+        "DestinationPort": "8081",
+        "Protocol": "tcp"
+      }
+    },
+    "process": { "name": "beacon.exe", "pid": 6720 },
+    "network": {
+      "protocol": "tcp",
+      "direction": "outbound",
+      "source": { "ip": "192.168.1.10", "port": 49235 },
+      "destination": { "ip": "192.168.1.5", "port": 8081 }
+    }
+  },
+  {
+    "@timestamp": "2026-06-10T06:25:15.789Z",
+    "host": { "name": "DC" },
+    "source": { "ip": "192.168.1.10", "port": 49236 },
+    "destination": { "ip": "192.168.1.5", "port": 8081 },
+    "event": {
+      "code": 3,
+      "provider": "Microsoft-Windows-Sysmon",
+      "action": "network-connection"
+    },
+    "winlog": {
+      "event_id": 3,
+      "event_data": {
+        "Image": "C:\\Users\\Public\\beacon.exe",
+        "SourceIp": "192.168.1.10",
+        "SourcePort": "49236",
+        "DestinationIp": "192.168.1.5",
+        "DestinationPort": "8081",
+        "Protocol": "tcp"
+      }
+    },
+    "process": { "name": "beacon.exe", "pid": 6720 },
+    "network": {
+      "protocol": "tcp",
+      "direction": "outbound",
+      "source": { "ip": "192.168.1.10", "port": 49236 },
+      "destination": { "ip": "192.168.1.5", "port": 8081 }
+    }
+  },
+  {
+    "@timestamp": "2026-06-10T06:25:20.012Z",
+    "host": { "name": "DC" },
+    "source": { "ip": "192.168.1.10", "port": 49237 },
+    "destination": { "ip": "192.168.1.5", "port": 8081 },
+    "event": {
+      "code": 3,
+      "provider": "Microsoft-Windows-Sysmon",
+      "action": "network-connection"
+    },
+    "winlog": {
+      "event_id": 3,
+      "event_data": {
+        "Image": "C:\\Users\\Public\\beacon.exe",
+        "SourceIp": "192.168.1.10",
+        "SourcePort": "49237",
+        "DestinationIp": "192.168.1.5",
+        "DestinationPort": "8081",
+        "Protocol": "tcp"
+      }
+    },
+    "process": { "name": "beacon.exe", "pid": 6720 },
+    "network": {
+      "protocol": "tcp",
+      "direction": "outbound",
+      "source": { "ip": "192.168.1.10", "port": 49237 },
+      "destination": { "ip": "192.168.1.5", "port": 8081 }
+    }
+  }
+]

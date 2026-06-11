@@ -1,0 +1,153 @@
+# Nation‑State Lab – .gitignore
+# Excludes sensitive data, logs, binaries, and temporary files.
+
+# Secrets and credentials
+*.key
+*.pem
+*.crt
+*.p12
+*.pfx
+*.env
+*.secret
+**/wazuh-passwords.txt
+**/server.config.yaml
+**/client.config.yaml
+**/docker-compose.override.yml
+**/elasticsearch.yml
+**/kibana.yml
+**/winlogbeat.yml
+**/filebeat.yml
+**/ossec.conf
+**/client.keys
+
+# Logs
+*.log
+*.log.*
+**/logs/
+**/alerts.json
+**/ossec.log
+**/winlogbeat.log
+**/filebeat.log
+**/velociraptor*.log
+**/journalctl-output.txt
+
+# Virtual machine files (large)
+*.vmdk
+*.vmem
+*.vmss
+*.vmsn
+*.vmx.lck
+*.vmsd
+*.nvram
+*.vbox
+*.vdi
+*.ovf
+
+# Docker artifacts (ignore volumes, but not compose files)
+**/elasticsearch-data/
+**/kibana-data/
+**/wazuh-docker/
+**/elastic-agent-data/
+**/velociraptor/datastore/
+**/velociraptor/filestore/
+
+# Attack payloads and binaries (generated)
+*.exe
+*.msi
+*.dll
+*.so
+*.bin
+shell.exe
+beacon.exe
+mimikatz.exe
+*.o
+*.obj
+*.pyc
+*.class
+__pycache__/
+
+# BloodHound / SharpHound data (large and sensitive)
+*.zip
+*BloodHound*.zip
+*SharpHound*.zip
+**/BloodHound/Collectors/*.exe
+**/bloodhound-data/
+
+# Atomic Red Team (large, generated)
+**/AtomicRedTeam/
+**/ExternalPayloads/
+**/powershell-yaml/
+
+# Artifacts from Velociraptor hunts (CSV/JSON)
+**/hunt_results/
+**/hunt_*.csv
+**/hunt_*.json
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.bak
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+*.orig
+*.rej
+
+# IDE and editor files
+.vscode/
+.idea/
+*.sublime-*
+*.sublime-workspace
+.project
+.classpath
+.settings/
+
+# Python virtual environments (if used for Caldera)
+venv/
+env/
+ENV/
+*.venv
+**/lib/python*/site-packages/
+**/pyvenv.cfg
+
+# OS metadata
+*.dmp
+*.dump
+*.core
+
+# Documentation build artifacts
+**/_build/
+**/site/
+**/.doctrees/
+
+# Large evidence files (screenshots may be kept, but raw captures excluded)
+**/*.png.bak
+**/*.jpg.bak
+**/*.pcap
+**/*.pcapng
+
+# Backup archives
+*.zip
+*.tar.gz
+*.7z
+*.rar
+*.iso
+*.img
+
+# Sensitive markdown files containing credentials (if any)
+**/credentials*.txt
+**/passwords*.txt
+**/secrets*.md
+
+# Kali / Ubuntu logs that may contain commands
+**/.bash_history
+**/.zsh_history
+**/.mysql_history
+**/.psql_history
+
+# Shared folder (host side) – ignore entire directory to avoid accidental commit
+C:/tempshare/
+D:/Nation_State_Lab/ISOs/
+D:/Nation_State_Lab/VMs/

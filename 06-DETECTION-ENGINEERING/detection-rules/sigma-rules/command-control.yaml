@@ -1,0 +1,97 @@
+title: Suspicious Outbound HTTP Connections to Non-Standard Ports
+id: d4e5f6a7-8b9c-0d1e-2f3a-4b5c6d7e8f9a
+status: experimental
+description: Detects outbound HTTP/HTTPS connections to non-standard ports (8080, 8081, 4444, etc.) from known malware-like executables or unusual payload names.
+references:
+    - https://attack.mitre.org/techniques/T1071/001/
+author: Lab Simulation
+date: 2026-06-10
+tags:
+    - attack.command_and_control
+    - attack.t1071.001
+
+logsource:
+    product: windows
+    service: sysmon
+    category: network_connection
+
+detection:
+    selection:
+        EventID: 3
+        DestinationPort:
+            - 8080
+            - 8081
+            - 4444
+            - 4445
+            - 8443
+            - 8888
+        Image|endswith:
+            - '\beacon.exe'
+            - '\shell.exe'
+            - '\reverse.exe'
+            - '\meterpreter.exe'
+
+    condition: selection
+
+falsepositives:
+    - Legitimate apps using alternative ports (game servers, dev tools)
+level: high
+---
+title: Suspicious Process with Immediate Outbound Network Connection
+id: e5f6a7b8-9c0d-1e2f-3a4b-5c6d7e8f9a0b
+status: experimental
+description: Detects processes that create outbound network connections immediately after execution (beacon-like behavior).
+references:
+    - https://attack.mitre.org/techniques/T1071/
+
+logsource:
+    product: windows
+    service: sysmon
+    category: network_connection
+
+detection:
+    process_creation:
+        EventID: 1
+        Image|endswith:
+            - '\beacon.exe'
+            - '\shell.exe'
+
+    network_connection:
+        EventID: 3
+        Image|endswith:
+            - '\beacon.exe'
+            - '\shell.exe'
+
+    condition: process_creation and network_connection
+
+falsepositives:
+    - Browsers and update agents
+level: high
+---
+title: LOLBin certutil.exe Downloading Executable
+id: f6a7b8c9-0d1e-2f3a-4b5c-6d7e8f9a0b1c
+status: experimental
+description: Detects certutil.exe downloading executable files from remote HTTP sources (LOLBIN abuse).
+references:
+    - https://attack.mitre.org/techniques/T1218/
+
+logsource:
+    product: windows
+    service: security
+    category: process_creation
+
+detection:
+    selection:
+        EventID: 4688
+        ProcessName|endswith: '\certutil.exe'
+        CommandLine|contains:
+            - '-urlcache'
+            - '-f'
+            - 'http://'
+            - '.exe'
+
+    condition: selection
+
+falsepositives:
+    - Admin tools using certutil for legitimate file transfers
+level: medium

@@ -1,0 +1,9 @@
+VM Name,IP Address,Subnet Mask,Default Gateway,DNS Server,Operating System,vCPU,RAM (GB),Disk (GB),Role,Status,Virtual Network,Notes
+DC,192.168.1.10,255.255.255.0,,127.0.0.1,Windows Server 2019,2,2,50,"Domain Controller / DNS",Active,"Host-Only (VMnet1)","Primary Active Directory Domain Services (AD DS) server for nation.local"
+WS1,192.168.1.20,255.255.255.0,,192.168.1.10,Windows 10 Pro,2,2,50,"Standard User Workstation",Active,"Host-Only (VMnet1)","Domain user: normaluser; primary endpoint for user activity monitoring and attack simulation"
+WS2,192.168.1.30,255.255.255.0,,192.168.1.10,Windows 10 Pro,2,2,50,"Developer Workstation",Decommissioned,"Host-Only (VMnet1)","Originally assigned to domain user: developer; removed due to host storage limitations"
+WS3,192.168.1.40,255.255.255.0,,192.168.1.10,Windows 10 Pro,2,2,50,"Administrative Workstation",Decommissioned,"Host-Only (VMnet1)","Originally assigned to service_account; removed due to host storage limitations"
+FILESERVER,192.168.1.50,255.255.255.0,,192.168.1.10,Windows Server 2019,2,2,50,"File Server",Active,"Host-Only (VMnet1)","Hosts Documents, Finance, and HR shares secured through NTFS and share permissions"
+WEBSERVER,192.168.1.60,255.255.255.0,,192.168.1.10,Windows Server 2019,2,2,50,"Web Server (IIS)",Active,"Host-Only (VMnet1)","Hosts vulnerable ASP.NET application used for attack simulation and detection testing"
+Kali,192.168.1.5,255.255.255.0,,,Kali Linux 2024.4,2,4,40,"Attack Platform",Active,"Host-Only (VMnet1)","Includes Metasploit, Caldera, BloodHound, Neo4j, Impacket, Hydra, Nmap, Responder, and Netcat"
+Ubuntu,192.168.1.100,255.255.255.0,,,Ubuntu Server 22.04 LTS,2,4,60,"Monitoring and SIEM Server",Active,"Host-Only (VMnet1)","Runs Elasticsearch, Kibana, Velociraptor Server, Docker Engine, and centralized logging infrastructure"

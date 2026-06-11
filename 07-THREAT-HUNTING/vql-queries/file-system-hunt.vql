@@ -1,0 +1,53 @@
+/*
+   file-system-hunt.vql
+   Purpose: Hunt for known malicious payload files on disk
+   Targets: shell.exe, beacon.exe, reverse payloads in Public/Temp directories
+   Artifact: Windows.Search.FileFinder / hunt_results()
+*/
+
+-- -----------------------------------------------------------------------------
+-- 1. Hunt for specific payload files in Public directory
+-- -----------------------------------------------------------------------------
+LET PublicTargets = SELECT *
+FROM hunt_results()
+WHERE File.Path =~ '(?i)C:\\Users\\Public\\(shell|beacon|reverse|meterpreter)\\.exe$'
+
+-- -----------------------------------------------------------------------------
+-- 2. Hunt for any executable files in Public folder during attack window
+-- -----------------------------------------------------------------------------
+LET PublicExes = SELECT *
+FROM hunt_results()
+WHERE File.Path =~ '(?i)C:\\Users\\Public\\.*\\.exe$'
+AND File.CreateTime >= timestamp(epoch=1749570000)
+AND File.CreateTime <= timestamp(epoch=1749577200)
+
+-- -----------------------------------------------------------------------------
+-- 3. Hunt for executables in Temp directories
+-- -----------------------------------------------------------------------------
+LET TempExes = SELECT *
+FROM hunt_results()
+WHERE (
+    File.Path =~ '(?i)C:\\Windows\\Temp\\.*\\.exe$'
+    OR File.Path =~ '(?i)C:\\Users\\.*\\AppData\\Local\\Temp\\.*\\.exe$'
+)
+AND File.CreateTime >= timestamp(epoch=1749570000)
+AND File.CreateTime <= timestamp(epoch=1749577200)
+
+-- -----------------------------------------------------------------------------
+-- 4. Final combined APT file system hunt results
+-- -----------------------------------------------------------------------------
+SELECT
+    File.Path,
+    File.Size,
+    File.CreateTime,
+    File.ModifyTime,
+    File.Md5,
+    File.Sha1
+FROM (
+    SELECT * FROM PublicTargets
+    UNION ALL
+    SELECT * FROM PublicExes
+    UNION ALL
+    SELECT * FROM TempExes
+)
+ORDER BY File.CreateTime

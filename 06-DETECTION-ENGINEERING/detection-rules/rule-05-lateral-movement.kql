@@ -1,0 +1,32 @@
+# rule-lateral-movement-and-psexec.kql
+# Lateral Movement Detection – Pass-the-Hash / PsExec / Admin Logons
+
+(
+  event.code: 4624
+  and winlog.event_data.LogonType: 3
+  and winlog.event_data.AuthenticationPackageName: "NTLM"
+  and not winlog.event_data.WorkstationName: "*$"
+)
+or
+(
+  event.code: 5140
+  and winlog.event_data.ShareName: "*ADMIN$"
+  and not winlog.event_data.SourceAddress: ("127.0.0.1" or "::1" or "192.168.1.*")
+)
+or
+(
+  event.code: 4688
+  and winlog.event_data.ProcessName: "*PSEXESVC*.exe"
+)
+or
+(
+  event.code: 4672
+  and winlog.event_data.TargetUserName: "Administrator"
+  and winlog.event_data.TargetDomainName: "NATION"
+)
+or
+(
+  event.code: 4625
+  and winlog.event_data.LogonType: 3
+  and winlog.event_data.Status: "0xc000006d"
+)

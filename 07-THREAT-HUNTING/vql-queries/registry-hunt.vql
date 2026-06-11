@@ -1,0 +1,58 @@
+/*
+  registry-hunt.vql
+  Purpose: Detect persistence + UAC bypass + LOLBins in registry
+*/
+
+-- ---------------------------------------------------------------------
+-- 1. Run / RunOnce persistence
+-- ---------------------------------------------------------------------
+LET RunKeys = SELECT *
+FROM hunt_results(artifact="Windows.Sys.Registry.Run")
+WHERE Key =~ '(?i)Run|RunOnce|RunServices'
+  AND Value =~ '(?i)shell\.exe|beacon\.exe|C:\\Users\\Public\\.*\.exe|C:\\Temp\\.*\.exe'
+
+-- ---------------------------------------------------------------------
+-- 2. UAC bypass registry tampering
+-- ---------------------------------------------------------------------
+LET UACBypass = SELECT *
+FROM hunt_results(artifact="Windows.Registry.Generic")
+WHERE KeyPath =~ '(?i)Microsoft\\Windows\\CurrentVersion\\Policies\\System'
+  AND Name =~ '(?i)ConsentPromptBehaviorAdmin|EnableLUA|PromptOnSecureDesktop'
+  AND Value =~ '(?i)^0$|^1$'
+
+-- ---------------------------------------------------------------------
+-- 3. Suspicious service image paths
+-- ---------------------------------------------------------------------
+LET MaliciousServices = SELECT *
+FROM hunt_results(artifact="Windows.Sys.Services")
+WHERE ImagePath =~ '(?i)shell\.exe|beacon\.exe|PSEXESVC\.exe|C:\\Users\\Public\\.*\.exe'
+
+-- ---------------------------------------------------------------------
+-- 4. IFEO (Image File Execution Options) hijack
+-- ---------------------------------------------------------------------
+LET IFEODebug = SELECT *
+FROM hunt_results(artifact="Windows.Registry.Generic")
+WHERE KeyPath =~ '(?i)Image File Execution Options'
+  AND Name =~ '(?i)Debugger'
+  AND Value =~ '(?i)cmd\.exe|powershell\.exe'
+
+-- ---------------------------------------------------------------------
+-- 5. Startup / shell persistence
+-- ---------------------------------------------------------------------
+LET UserShell = SELECT *
+FROM hunt_results(artifact="Windows.Registry.Generic")
+WHERE KeyPath =~ '(?i)Shell Folders'
+  AND Name =~ '(?i)Startup'
+  AND Value =~ '(?i)shell\.exe|beacon\.exe'
+
+-- ---------------------------------------------------------------------
+-- 6. Final unified output (correct VQL way)
+-- ---------------------------------------------------------------------
+SELECT *
+FROM chain(
+    RunKeys,
+    UACBypass,
+    MaliciousServices,
+    IFEODebug,
+    UserShell
+)

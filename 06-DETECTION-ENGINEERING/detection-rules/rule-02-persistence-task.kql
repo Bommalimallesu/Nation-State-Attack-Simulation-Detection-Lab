@@ -1,0 +1,3 @@
+event.code: 4698 
+  and winlog.event_data.TaskName: * 
+  and winlog.event_data.TaskContent: (*shell.exe or *beacon.exe or *C:\\Users\\Public\\* or *C:\\Temp\\*)

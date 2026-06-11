@@ -1,0 +1,43 @@
+```csv
+Timestamp,Host,Event ID,Source,Action,Description,Source IP,Destination IP,Process Name,User
+2026-06-10T06:13:49.123Z,WS1,4688,Windows Security,Process Created,"shell.exe executed from C:\Users\Public via cmd.exe",,,shell.exe,WS1\WS-1
+2026-06-10T06:13:49.456Z,WS1,3,Sysmon,Network Connection,"Outbound TCP connection to 192.168.1.5:4444 (reverse shell callback)",192.168.1.20,192.168.1.5,shell.exe,WS1\WS-1
+2026-06-10T06:13:49.789Z,WS1,1,Sysmon,Process Creation,"shell.exe created (PID 8188), parent cmd.exe (PID 4764)",,,shell.exe,WS1\WS-1
+2026-06-10T06:14:00.000Z,WS1,4624,Windows Security,Interactive Logon,"Local interactive logon by WS1 user",127.0.0.1,,,WS1\WS-1
+2026-06-10T06:15:00.456Z,WS1,4698,Windows Security,Scheduled Task Created,"Task 'Updater' created with action C:\Users\Public\shell.exe and daily trigger",,,schtasks.exe,WS1\WS-1
+2026-06-10T06:15:00.789Z,WS1,4688,Windows Security,Process Created,"schtasks.exe executed to register Updater task",,,schtasks.exe,WS1\WS-1
+2026-06-10T06:15:05.000Z,WS1,4688,Windows Security,Process Created,"eventvwr.exe launched during privilege escalation simulation",,,eventvwr.exe,WS1\WS-1
+2026-06-10T06:15:05.234Z,WS1,4688,Windows Security,Process Created,"Elevated cmd.exe spawned from eventvwr.exe",,,cmd.exe,NT AUTHORITY\SYSTEM
+2026-06-10T06:15:05.500Z,WS1,4673,Windows Security,Privileged Operation,"cmd.exe invoked privileged operation using SeDebugPrivilege",,,cmd.exe,NT AUTHORITY\SYSTEM
+2026-06-10T06:15:10.456Z,WS1,10,Sysmon,Process Access,"shell.exe accessed lsass.exe process handle",,,shell.exe,NT AUTHORITY\SYSTEM
+2026-06-10T06:15:10.789Z,WS1,4663,Windows Security,Object Access,"High-privilege access requested to lsass.exe",,,shell.exe,NT AUTHORITY\SYSTEM
+2026-06-10T06:15:11.000Z,WS1,4688,Windows Security,Process Created,"Credential dumping utility executed in simulation",,,mimikatz.exe,NT AUTHORITY\SYSTEM
+2026-06-10T06:15:11.200Z,WS1,4661,Windows Security,Object Handle Closed,"LSASS handle released after credential access simulation",,,shell.exe,NT AUTHORITY\SYSTEM
+2026-06-10T06:15:11.500Z,WS1,4688,Windows Security,Process Created,"cmd.exe launched to process extracted credentials",,,cmd.exe,NT AUTHORITY\SYSTEM
+2026-06-10T06:15:11.700Z,WS1,1,Sysmon,Process Creation,"mimikatz.exe process observed with shell.exe as parent",,,mimikatz.exe,NT AUTHORITY\SYSTEM
+2026-06-10T06:15:20.000Z,WS1,5145,Windows Security,Network Share Access,"Pre-lateral movement share access validation",192.168.1.20,192.168.1.10,shell.exe,NT AUTHORITY\SYSTEM
+2026-06-10T06:15:23.456Z,DC,4624,Windows Security,Network Logon,"Successful NTLM network logon from 192.168.1.5",192.168.1.5,192.168.1.10,,NATION\Administrator
+2026-06-10T06:15:23.457Z,DC,4672,Windows Security,Special Privileges Assigned,"Administrator received elevated privileges",192.168.1.5,192.168.1.10,,NATION\Administrator
+2026-06-10T06:15:23.458Z,DC,5140,Windows Security,Share Accessed,"ADMIN$ share accessed for remote execution",192.168.1.5,192.168.1.10,,NATION\Administrator
+2026-06-10T06:15:23.500Z,DC,5145,Windows Security,Detailed Share Access,"IPC$ share accessed during remote execution workflow",192.168.1.5,192.168.1.10,,NATION\Administrator
+2026-06-10T06:15:23.600Z,DC,4688,Windows Security,Process Created,"cmd.exe executed to prepare temporary directory",,,cmd.exe,NATION\Administrator
+2026-06-10T06:15:23.700Z,DC,4688,Windows Security,Process Created,"cmd.exe copied remote service binary into temporary location",,,cmd.exe,NATION\Administrator
+2026-06-10T06:15:23.800Z,DC,7045,System,Service Installed,"PSEXESVC service installed",,,services.exe,NATION\Administrator
+2026-06-10T06:15:23.900Z,DC,7036,System,Service Started,"PSEXESVC service entered running state",,,PSEXESVC.exe,NATION\Administrator
+2026-06-10T06:15:24.123Z,DC,4688,Windows Security,Process Created,"PSEXESVC.exe launched with execution parameters",,,PSEXESVC.exe,NATION\Administrator
+2026-06-10T06:15:24.200Z,DC,4688,Windows Security,Process Created,"cmd.exe executed whoami for session verification",,,cmd.exe,NATION\Administrator
+2026-06-10T06:15:24.300Z,DC,4688,Windows Security,Process Created,"cmd.exe executed hostname for environment verification",,,cmd.exe,NATION\Administrator
+2026-06-10T06:15:30.000Z,DC,1,Sysmon,Process Creation,"PSEXESVC.exe observed under services.exe",,,PSEXESVC.exe,NATION\Administrator
+2026-06-10T06:25:09.000Z,Kali,N/A,HTTP Server,HTTP Request,"HTTP request received for beacon.exe",192.168.1.5,192.168.1.10,python3,root
+2026-06-10T06:25:09.123Z,DC,4688,Windows Security,Process Created,"certutil.exe downloaded beacon.exe via HTTP",,,certutil.exe,NATION\Administrator
+2026-06-10T06:25:09.456Z,DC,3,Sysmon,Network Connection,"Outbound HTTP connection to 192.168.1.5:8080",192.168.1.10,192.168.1.5,certutil.exe,NATION\Administrator
+2026-06-10T06:25:09.789Z,DC,11,Sysmon,File Created,"beacon.exe created in C:\Users\Public",,,beacon.exe,NATION\Administrator
+2026-06-10T06:25:10.000Z,DC,4688,Windows Security,Process Created,"beacon.exe executed from C:\Users\Public",,,beacon.exe,NATION\Administrator
+2026-06-10T06:25:10.123Z,DC,1,Sysmon,Process Creation,"beacon.exe started with cmd.exe as parent",,,beacon.exe,NATION\Administrator
+2026-06-10T06:25:10.456Z,DC,3,Sysmon,Network Connection,"Initial outbound C2 connection to 192.168.1.5:8081",192.168.1.10,192.168.1.5,beacon.exe,NATION\Administrator
+2026-06-10T06:25:10.789Z,DC,3,Sysmon,Network Connection,"Second outbound C2 beacon",192.168.1.10,192.168.1.5,beacon.exe,NATION\Administrator
+2026-06-10T06:25:15.789Z,DC,3,Sysmon,Network Connection,"Periodic C2 beacon check-in",192.168.1.10,192.168.1.5,beacon.exe,NATION\Administrator
+2026-06-10T06:25:20.012Z,DC,3,Sysmon,Network Connection,"Periodic C2 beacon check-in",192.168.1.10,192.168.1.5,beacon.exe,NATION\Administrator
+2026-06-10T06:25:30.123Z,DC,3,Sysmon,Network Connection,"Periodic C2 beacon check-in",192.168.1.10,192.168.1.5,beacon.exe,NATION\Administrator
+2026-06-10T06:25:40.456Z,DC,3,Sysmon,Network Connection,"Periodic C2 beacon check-in",192.168.1.10,192.168.1.5,beacon.exe,NATION\Administrator
+```

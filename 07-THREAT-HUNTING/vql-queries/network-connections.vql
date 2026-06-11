@@ -1,0 +1,51 @@
+/*
+  network-connections.vql
+  Purpose: Hunt for reverse shell + C2 beacon traffic
+  Target: 192.168.1.5 (attacker IP)
+*/
+
+-- ---------------------------------------------------------------------
+-- 1. Active network connections
+-- ---------------------------------------------------------------------
+LET ActiveConnections = SELECT *
+FROM hunt_results()
+WHERE RemoteAddress =~ '192\.168\.1\.5'
+  AND RemotePort IN (4444, 4445, 8080, 8081)
+
+-- ---------------------------------------------------------------------
+-- 2. Sysmon historical network connections (Event ID 3)
+-- ---------------------------------------------------------------------
+LET HistoricalConnections = SELECT *
+FROM hunt_results(artifact="Windows.EventLogs.Sysmon")
+WHERE EventID = 3
+  AND EventData.DestinationIp =~ '192\.168\.1\.5'
+  AND EventData.DestinationPort IN (4444, 4445, 8080, 8081)
+
+-- ---------------------------------------------------------------------
+-- 3. Suspicious process network activity
+-- ---------------------------------------------------------------------
+LET ProcessConnections = SELECT *
+FROM hunt_results()
+WHERE RemoteAddress =~ '192\.168\.1\.5'
+  AND ProcessInfo.Name =~ '(?i)(shell|beacon)\.exe'
+
+-- ---------------------------------------------------------------------
+-- 4. Lateral movement inbound SMB (PsExec / Pass-the-hash)
+-- ---------------------------------------------------------------------
+LET LateralMovement = SELECT *
+FROM hunt_results()
+WHERE RemoteAddress =~ '192\.168\.1\.5'
+  AND LocalPort = 445
+  AND Direction =~ '(?i)inbound'
+
+-- ---------------------------------------------------------------------
+-- 5. Final unified output (correct VQL way)
+-- ---------------------------------------------------------------------
+SELECT *
+FROM chain(
+    ActiveConnections,
+    HistoricalConnections,
+    ProcessConnections,
+    LateralMovement
+)
+ORDER BY Timestamp DESC

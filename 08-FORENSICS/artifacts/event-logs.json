@@ -1,0 +1,148 @@
+[
+  {
+    "@timestamp": "2026-06-10T06:13:49.123Z",
+    "host": { "name": "WS1" },
+    "source": { "ip": "127.0.0.1" },
+    "event": {
+      "code": 4688,
+      "provider": "Microsoft-Windows-Security-Auditing",
+      "action": "process-created"
+    },
+    "winlog": {
+      "event_id": 4688,
+      "event_data": {
+        "ProcessName": "C:\\Users\\Public\\shell.exe",
+        "CommandLine": "shell.exe",
+        "ParentProcessName": "C:\\Windows\\System32\\cmd.exe",
+        "NewProcessId": "0x1FFC",
+        "SubjectUserName": "WS-1",
+        "SubjectDomainName": "WS1"
+      }
+    },
+    "process": {
+      "name": "shell.exe",
+      "parent": { "name": "cmd.exe" }
+    },
+    "user": { "name": "WS-1", "domain": "WS1" }
+  },
+  {
+    "@timestamp": "2026-06-10T06:15:00.456Z",
+    "host": { "name": "WS1" },
+    "event": {
+      "code": 4698,
+      "provider": "Microsoft-Windows-Security-Auditing",
+      "action": "scheduled-task-created"
+    },
+    "winlog": {
+      "event_id": 4698,
+      "event_data": {
+        "TaskName": "Updater",
+        "TaskContent": "<?xml version=\"1.0\"...><Actions><Exec><Command>C:\\Users\\Public\\shell.exe</Command></Exec></Actions>",
+        "SubjectUserName": "WS-1",
+        "SubjectDomainName": "WS1"
+      }
+    },
+    "task": { "name": "Updater" },
+    "user": { "name": "WS-1", "domain": "WS1" }
+  },
+  {
+    "@timestamp": "2026-06-10T06:15:23.456Z",
+    "host": { "name": "DC" },
+    "source": { "ip": "192.168.1.5", "port": 49234 },
+    "destination": { "ip": "192.168.1.10", "port": 445 },
+    "event": {
+      "code": 4624,
+      "provider": "Microsoft-Windows-Security-Auditing",
+      "action": "logged-in"
+    },
+    "winlog": {
+      "event_id": 4624,
+      "event_data": {
+        "LogonType": 3,
+        "TargetUserName": "Administrator",
+        "TargetDomainName": "NATION",
+        "TargetLogonId": "0x1A2B3C",
+        "SourceNetworkAddress": "192.168.1.5",
+        "SourcePort": 49234,
+        "AuthenticationPackageName": "NTLM",
+        "LogonProcessName": "NtLmSsp",
+        "WorkstationName": "KALI"
+      }
+    },
+    "user": { "name": "Administrator", "domain": "NATION" },
+    "network": { "protocol": "SMB", "direction": "inbound" }
+  },
+  {
+    "@timestamp": "2026-06-10T06:15:23.457Z",
+    "host": { "name": "DC" },
+    "event": {
+      "code": 4672,
+      "provider": "Microsoft-Windows-Security-Auditing",
+      "action": "admin-login"
+    },
+    "winlog": {
+      "event_id": 4672,
+      "event_data": {
+        "TargetUserName": "Administrator",
+        "TargetDomainName": "NATION",
+        "TargetLogonId": "0x1A2B3C",
+        "PrivilegeList": "SeSecurityPrivilege,SeBackupPrivilege,SeRestorePrivilege,SeTakeOwnershipPrivilege,SeDebugPrivilege,SeSystemEnvironmentPrivilege,SeLoadDriverPrivilege,SeImpersonatePrivilege"
+      }
+    },
+    "user": { "name": "Administrator", "domain": "NATION" }
+  },
+  {
+    "@timestamp": "2026-06-10T06:15:24.123Z",
+    "host": { "name": "DC" },
+    "event": {
+      "code": 4688,
+      "provider": "Microsoft-Windows-Security-Auditing",
+      "action": "process-created"
+    },
+    "winlog": {
+      "event_id": 4688,
+      "event_data": {
+        "ProcessName": "C:\\Windows\\temp\\PSEXESVC.exe",
+        "CommandLine": "PSEXESVC.exe -accepteula",
+        "ParentProcessName": "C:\\Windows\\System32\\cmd.exe",
+        "NewProcessId": "0xF4A",
+        "SubjectUserName": "Administrator",
+        "SubjectDomainName": "NATION"
+      }
+    },
+    "process": {
+      "name": "PSEXESVC.exe",
+      "parent": { "name": "cmd.exe" }
+    },
+    "user": { "name": "Administrator", "domain": "NATION" }
+  },
+  {
+    "@timestamp": "2026-06-10T06:25:10.456Z",
+    "host": { "name": "DC" },
+    "source": { "ip": "192.168.1.10", "port": 49235 },
+    "destination": { "ip": "192.168.1.5", "port": 8081 },
+    "event": {
+      "code": 3,
+      "provider": "Microsoft-Windows-Sysmon",
+      "action": "network-connection"
+    },
+    "winlog": {
+      "event_id": 3,
+      "event_data": {
+        "Image": "C:\\Users\\Public\\beacon.exe",
+        "SourceIp": "192.168.1.10",
+        "SourcePort": "49235",
+        "DestinationIp": "192.168.1.5",
+        "DestinationPort": "8081",
+        "Protocol": "tcp"
+      }
+    },
+    "process": { "name": "beacon.exe", "pid": 6720 },
+    "network": {
+      "protocol": "tcp",
+      "direction": "outbound",
+      "source": { "ip": "192.168.1.10", "port": 49235 },
+      "destination": { "ip": "192.168.1.5", "port": 8081 }
+    }
+  }
+]
