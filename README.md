@@ -263,11 +263,15 @@ nation-state-lab/
 
 ## 🛠️ 8. Technology Stack
 
-- CALDERA, Metasploit, Atomic Red Team
-- Elasticsearch, Kibana, Sysmon
-- Winlogbeat, Filebeat
-- Velociraptor
-- Python, PowerShell, Bash, Docker
+| Category | Tools | Purpose |
+|----------|------|---------|
+| ⚔️ Adversary Emulation | CALDERA, Metasploit, Atomic Red Team | Simulate real-world attacker behaviors aligned with MITRE ATT&CK |
+| 📊 SIEM & Log Analytics | Elasticsearch, Kibana | Centralized log ingestion, search, and security visualization |
+| 🧩 Endpoint Telemetry | Sysmon | Advanced Windows event logging for deep system visibility |
+| 📡 Log Collection Agents | Winlogbeat, Filebeat | Forward endpoint and system logs to SIEM platform |
+| 🕵️ DFIR & Threat Hunting | Velociraptor | Endpoint investigation, live response, and forensic hunting |
+| 🧠 Automation & Scripting | Python, PowerShell, Bash | Detection engineering, automation, and security workflow scripting |
+| 🐳 Infrastructure | Docker | Containerized deployment of security tools and services |
 
 ---
 
