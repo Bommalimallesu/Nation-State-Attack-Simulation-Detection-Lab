@@ -121,14 +121,16 @@ Attack Simulation → Endpoint Execution → Sysmon Logs → Beat Collection →
 
 ## 🎯 6. Attack Lifecycle Mapping
 
-Phase | Objective | Detection Focus
-Reconnaissance | Network discovery | Scan anomalies
-Initial Access | Foothold | Ingress alerts
-Persistence | Maintain access | Autoruns detection
-Privilege Escalation | Admin access | Token anomalies
-Credential Access | Theft | LSASS monitoring
-Lateral Movement | Spread | SMB/WinRM logs
-Command & Control | Communication | Beacon detection
+| Phase | Objective | Detection Focus |
+|---------|-----------|------------------|
+| Reconnaissance | Network discovery and environment enumeration | Network scanning anomalies, host discovery activity |
+| Initial Access | Establish an initial foothold in the target environment | Ingress tool transfer, suspicious authentication events |
+| Persistence | Maintain long-term access to compromised systems | Autoruns, scheduled tasks, registry modifications |
+| Privilege Escalation | Obtain elevated or administrative privileges | Token manipulation, privilege escalation anomalies |
+| Credential Access | Steal credentials and authentication material | LSASS access, credential dumping activity |
+| Lateral Movement | Move between systems within the network | SMB, WinRM, RDP, and remote execution monitoring |
+| Command & Control | Establish communication with attacker infrastructure | Beaconing patterns, suspicious outbound connections |
+```
 
 ---
 
