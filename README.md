@@ -37,46 +37,65 @@ Primary Strategic Outcomes:
 ## 🏗️ 3. Architecture
 
 ```mermaid
-flowchart TB
-
-    subgraph ATTACK["Attack Layer"]
-        A1[Atomic Red Team]
-        A2[Metasploit]
-        A3[CALDERA]
-        A4[BloodHound]
+graph LR
+    subgraph "🏢 Enterprise Network (192.168.1.0/24)"
+        DC["🖥️ Domain Controller<br>192.168.1.10<br>Windows Server 2019"]
+        WS1["💻 Workstation WS1<br>192.168.1.20<br>Windows 10 Pro"]
+        WS2["💻 Workstation WS2<br>192.168.1.30<br>Windows 10 Pro"]
+        FS["📁 File Server<br>192.168.1.50<br>Windows Server 2019"]
+        WEB["🌐 Web Server<br>192.168.1.60<br>Windows Server 2019<br>IIS + SQLi"]
     end
 
-    subgraph AD["Active Directory Enterprise"]
-        B1[Domain Controller]
-        B2[Windows Workstations]
-        B3[Windows Servers]
-        B4[GPO Hardening]
+    subgraph "⚔️ Attacker (Kali Linux)"
+        KALI["🐉 Kali Attacker<br>192.168.1.5<br>Metasploit · Caldera · BloodHound"]
     end
 
-    subgraph TELEMETRY["Telemetry Collection"]
-        C1[Sysmon]
-        C2[Winlogbeat]
-        C3[Filebeat]
-        C4[Velociraptor]
+    subgraph "📊 Monitoring Host (Ubuntu 22.04)"
+        UBUNTU["🖧 Ubuntu Server<br>192.168.1.100"]
+        ES["📈 Elasticsearch :9200<br>Docker"]
+        KIBANA["📉 Kibana :5601<br>Docker"]
+        VEL["🕵️ Velociraptor Server<br>:8000 (clients) · :8889 (GUI)"]
     end
 
-    subgraph ELASTIC["Elastic Security Platform"]
-        D1[Elasticsearch]
-        D2[Kibana]
-        D3[Detection Engine]
+    subgraph "🛡️ Monitoring Agents"
+        WINLOG["Winlogbeat (all Windows VMs)"]
+        FILEBEAT["Filebeat (Kali)"]
+        VELCLIENT["Velociraptor Client<br>(all Windows VMs)"]
     end
 
-    subgraph SOC["Security Operations Layer"]
-        E1[SOC Monitoring]
-        E2[DFIR]
-        E3[Threat Hunting]
-        E4[MITRE ATT&CK Mapping]
-    end
+    %% Connections
+    DC --- WINLOG
+    WS1 --- WINLOG
+    WS2 --- WINLOG
+    FS --- WINLOG
+    WEB --- WINLOG
+    WINLOG -->|"Windows Event Logs<br>Security, System, App"| ES
 
-    ATT --> AD
-    AD --> TELEMETRY
-    TELEMETRY --> ELASTIC
-    ELASTIC --> SOC
+    KALI --- FILEBEAT
+    FILEBEAT -->|"/var/log/syslog, auth.log"| ES
+
+    ES --- KIBANA
+    KIBANA -->|"Dashboard & Alerts"| USER[("👤 Security Analyst<br>Host PC Browser")]
+
+    DC --- VELCLIENT
+    WS1 --- VELCLIENT
+    WS2 --- VELCLIENT
+    FS --- VELCLIENT
+    WEB --- VELCLIENT
+    VELCLIENT -->|"Telemetry & Hunt Results"| VEL
+    VEL -->|"Hunt GUI :8889"| USER
+
+    KALI -->|"Attack Traffic<br>Reverse Shell, Pass‑the‑Hash, etc."| DC
+    KALI -->|"Attack Traffic"| WS1
+    KALI -->|"Attack Traffic"| FS
+    KALI -->|"Attack Traffic"| WEB
+
+    style USER fill:#f9f,stroke:#333,stroke-width:2px
+    style ES fill:#0a0,stroke:#333,stroke-width:2px,color:#fff
+    style KIBANA fill:#0a0,stroke:#333,stroke-width:2px,color:#fff
+    style VEL fill:#7B2CBF,stroke:#333,stroke-width:2px,color:#fff
+    style KALI fill:#dc143c,stroke:#333,stroke-width:2px,color:#fff
+    style DC fill:#1e90ff,stroke:#333,stroke-width:2px,color:#fff
 ```
 ---
 
