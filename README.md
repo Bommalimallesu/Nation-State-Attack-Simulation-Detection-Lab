@@ -19,8 +19,15 @@ The **Nation-State Attack Simulation & Detection Lab** is an enterprise-grade cy
 In a landscape where legacy signature-based defenses fail against Living-off-the-Land (LotL) binaries and sophisticated lateral movement, security operations demand high-fidelity, deterministic environments. This platform recreates a realistic Active Directory enterprise domain where adversary behaviors are executed, monitored, detected, investigated, and mapped to the MITRE ATT&CK® framework.
 
 ---
+## 📋2. Prerequisites
 
-## 🎯 2. Project Objective
+- VMware Workstation Player (free) or Pro
+- 16 GB RAM host, 100 GB free disk space
+- ISOs: Windows Server 2019, Windows 10 Pro, Kali Linux 2024.4, Ubuntu Server 22.04
+- Basic familiarity with Windows Server, AD, and Linux command line
+
+---
+## 🎯 3. Project Objective
 
 Primary Strategic Outcomes:
 
@@ -34,7 +41,7 @@ Primary Strategic Outcomes:
 
 ---
 
-## 🏗️ 3. Architecture
+## 🏗️ 4. Architecture
 
 ```mermaid
 graph LR
@@ -99,13 +106,29 @@ graph LR
 ```
 ---
 
-## 🔄 4. Security Pipeline
+## 🔄 5. Security Pipeline
 
-Attack Simulation → Endpoint Execution → Sysmon Logs → Beat Collection → Elastic Ingestion → Detection Rules → Alerts → SOC Triage → Threat Hunting → DFIR Investigation → IOC Extraction → Incident Report
+## 🔄 Security Operations Pipeline
+
+```mermaid
+flowchart TD
+
+A[Adversary Emulation] --> B[Endpoint Execution]
+B --> C[Sysmon Telemetry]
+C --> D[Log Collection<br>Winlogbeat / Filebeat]
+D --> E[Elasticsearch SIEM]
+E --> F[Detection Engineering]
+F --> G[Alert Generation]
+G --> H[SOC Triage]
+H --> I[Threat Hunting]
+I --> J[DFIR Investigation]
+J --> K[IOC Extraction]
+K --> L[Incident Report]
+```
 
 ---
 
-## 🚀 5. Key Features
+## 🚀 6. Key Features
 
 - Multi-stage APT simulation (Recon → C2)
 - Credential dumping simulation (LSASS / NTDS)
@@ -119,7 +142,7 @@ Attack Simulation → Endpoint Execution → Sysmon Logs → Beat Collection →
 
 ---
 
-## 🎯 6. Attack Lifecycle Mapping
+## 🎯 7. Attack Lifecycle Mapping
 
 | Phase | Objective | Detection Focus |
 |---------|-----------|------------------|
@@ -133,7 +156,7 @@ Attack Simulation → Endpoint Execution → Sysmon Logs → Beat Collection →
 
 ---
 
-## 📁 7. Project Structure
+## 📁 8. Project Structure
 
 ```text
 nation-state-lab/
@@ -261,7 +284,7 @@ nation-state-lab/
 
 ---
 
-## 🛠️ 8. Technology Stack
+## 🛠️ 9. Technology Stack
 
 | Category | Tools | Purpose |
 |----------|------|---------|
@@ -275,7 +298,7 @@ nation-state-lab/
 
 ---
 
-## 📊 9. Metrics
+## 📊 10. Metrics
 
 - 7 Attack Phases
 - 100+ Detection Rules
@@ -286,7 +309,7 @@ nation-state-lab/
 
 ---
 
-## 🧠 10. Skills Demonstrated
+## 🧠 11. Skills Demonstrated
 
 - SOC Operations
 - Detection Engineering
@@ -296,7 +319,8 @@ nation-state-lab/
 - SIEM Architecture
 
 ---
-
+> **⚠️ Legal & Security Notice**  
+> This lab is for **educational and authorised testing only**. Do not deploy any attack techniques against systems without explicit written permission. The author is not responsible for any misuse.
 ---
 
 ## 👤 12. Author
